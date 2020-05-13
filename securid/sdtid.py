@@ -2,6 +2,7 @@
 
 import base64
 from datetime import date
+import dateutil.parser
 from typing import Any, Optional, Dict
 from collections import OrderedDict
 from xml.etree import cElementTree as ET
@@ -175,7 +176,8 @@ class SdtidFile(AbstractTokenFile):
         elif kind == 'int':
             value = int(value)
         elif kind == 'date':
-            value = date.fromisoformat(value.replace('/', '-'))
+            #https://stackoverflow.com/questions/127803/how-do-i-parse-an-iso-8601-formatted-date
+            value = dateutil.parser.isoparse(value.replace('/', '-'))
         return value
 
 
